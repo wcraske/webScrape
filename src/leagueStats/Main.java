@@ -1,5 +1,4 @@
 package leagueStats;
-
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -70,10 +69,15 @@ public class Main {
         String url = baseUrl + username + "-" + hashtag;
         Document doc = Jsoup.connect(url).get();
         Elements championBoxes = doc.select(".champion-box");
+        outputArea.append("Top Champions: "+ "\n");
 
         for (Element championBox : championBoxes) {
             String championName = championBox.text();
-            outputArea.append("Champion Name: " + championName + "\n");
+            String[] championStats = championName.split("\\s+");
+            for(int i = 0; i<championStats.length; i++) {
+            	System.out.println(championStats[i]);
+            }
+            outputArea.append("\n" + championStats[0] + " with a cs/min = " + championStats[2] + " KDA = " + championStats[4] +  "\n"+" WR = " + championStats[11]+  "\n");
         }
     }
 }
